@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.example.Product;
-import com.example.user.User;
-
+import com.example.Product.Product;
+import com.example.User.User;
+import com.example.payment.Payment;
+import com.example.shippingMethod.ShippingMethod;
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -95,19 +96,19 @@ public class Order implements Serializable {
     }
 
     public void placeOrder() {
-        // Método para realizar el pedido
+        
     }
 
     public void viewOrderStatus() {
-        // Método para ver el estado del pedido
+        
     }
 
     public void cancelOrder() {
-        // Método para cancelar el pedido
+        
     }
 
     public void generateInvoice() {
-        // Método para generar factura
+        
     }
 
     @Override
