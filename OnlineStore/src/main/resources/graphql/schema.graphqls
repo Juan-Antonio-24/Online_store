@@ -1,0 +1,162 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  getAllCategories: [Category]
+  getCategoryById(id: Int!): Category
+  getAllOrders: [Orders]
+  getOrderById(orderId: Int!): Orders
+  getAllPayments: [Payment]
+  getPaymentById(paymentId: Int!): Payment
+  getAllProducts: [Products]
+  getProductById(id: Int!): Products
+  getAllShippingMethods: [ShippingMethod]
+  getShippingMethodById(shippingMethodId: Int!): ShippingMethod
+  getAllShoppingCarts: [ShoppingCart]
+  getShoppingCartById(cartId: Int!): ShoppingCart
+  getAllUsers: [User]
+  getUserById(userId: Int!): User
+}
+
+type Mutation {
+  addCategory(category: CategoryDTO!): Category
+  removeCategory(id: Int!): String
+  updateCategory(id: Int!, category: CategoryDTO!): Category
+
+  placeOrder(shoppingCartId: Int!, shippingMethodId: Int!): Orders
+  processPayment(orderId: Int!, payment: PaymentDTO!): String
+  updatePayment(payment: PaymentDTO!, paymentId: Int!): String
+  deletePayment(paymentId: Int!): String
+
+  addProduct(product: ProductsDTO!): Products
+  updateProduct(id: Int!, product: ProductsDTO!): Products
+  deleteProduct(id: Int!): Boolean
+
+  createShippingMethod(shippingMethod: ShippingMethodDTO!): String
+  updateShippingMethod(shippingMethodId: Int!, shippingMethod: ShippingMethodDTO!): String
+  deleteShippingMethod(shippingMethodId: Int!): String
+
+  addProductToShoppingCart(cartId: Int!, userId: Int!, productId: Int!): String
+  removeProductFromShoppingCart(cartId: Int!, productId: Int!): String
+
+  registerUser(user: UserDTO!): String
+  updateUser(user: UserDTO!, userId: Int!): String
+  deleteUser(userId: Int!): String
+}
+
+type Category {
+  idCategory: ID!
+  name: String!
+  description: String
+  products: [Products]
+}
+
+type Orders {
+  idOrder: ID!
+  trackingNumber: String
+  shoppingCart: ShoppingCart
+  shippingMethod: ShippingMethod
+}
+
+type Payment {
+  idPayment: ID!
+  paymentMethod: String!
+  status: String!
+  paymentDate: String
+  totalCost: Float!
+}
+
+type Products {
+  productId: ID!
+  name: String!
+  description: String
+  price: Float!
+  quantityInInventory: Int!
+  discount: Float
+  availableQuantity: Int!
+  warehouseLocation: String
+  category: Category
+}
+
+type ShippingMethod {
+  idShippingMethod: ID!
+  shippingType: String!
+  shippingCost: Float!
+  estimatedTime: String
+  shippingCompany: String
+}
+
+type ShoppingCart {
+  idCart: ID!
+  products: [Products]
+  total: Float!
+  user: User
+}
+
+type User {
+  userId: ID!
+  name: String!
+  email: String!
+  address: String
+  userType: String
+  phone: String
+}
+
+# Input types
+input CategoryDTO {
+  idCategory: ID
+  name: String!
+  description: String
+}
+
+input OrdersDTO {
+  idOrder: ID
+  trackingNumber: String
+  shoppingCartId: Int!
+  shippingMethodId: Int!
+}
+
+input PaymentDTO {
+  idPayment: ID
+  paymentMethod: String!
+  status: String!
+  totalCost: Float!
+}
+
+input ProductsDTO {
+  productId: ID!
+  name: String!
+  description: String
+  price: Float!
+  quantityInInventory: Int!
+  discount: Float
+  availableQuantity: Int!
+  warehouseLocation: String
+  categoryId: Int
+}
+
+input ShippingMethodDTO {
+  idShippingMethod: ID
+  shippingType: String!
+  shippingCost: Float!
+  estimatedTime: String
+  shippingCompany: String
+}
+
+input ShoppingCartDTO {
+  idCart: ID!
+  products: [ProductsDTO]
+  total: Float!
+  userId: Int!
+}
+
+input UserDTO {
+  userId: ID!
+  name: String!
+  email: String!
+  address: String
+  userType: String
+  phone: String
+}
