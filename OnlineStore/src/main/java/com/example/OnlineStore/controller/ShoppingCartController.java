@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.OnlineStore.DTO.CategoryDTO; 
+import com.example.OnlineStore.DTO.CategoryDTO;
 import com.example.OnlineStore.DTO.ProductsDTO;
 import com.example.OnlineStore.DTO.ShoppingCartDTO;
 import com.example.OnlineStore.DTO.UserDTO;
@@ -38,7 +38,7 @@ public class ShoppingCartController {
     private ProductsService productService;
 
     @Autowired
-    private UserService userService; 
+    private UserService userService;
 
     @Operation(summary = "Get all shopping carts", responses = {
         @ApiResponse(responseCode = "200", description = "Shopping carts found",
@@ -98,8 +98,8 @@ public class ShoppingCartController {
             return new ResponseEntity<>("Product already exists in shopping cart", HttpStatus.CONFLICT);
         }
 
-        cart.addProduct(product); 
-        service.save(cart); 
+        cart.addProduct(product);
+        service.save(cart);
         return new ResponseEntity<>("Product added to shopping cart", HttpStatus.OK);
     }
 
@@ -125,7 +125,7 @@ public class ShoppingCartController {
         if (cart.getProducts().remove(product)) {
             cart.calculateTotal();
             service.save(cart);
-            
+
             if (cart.getProducts().isEmpty()) {
                 service.delete(cart.getIdCart());
                 return new ResponseEntity<>("Product deleted from shopping cart and cart is empty", HttpStatus.OK);
@@ -139,7 +139,6 @@ public class ShoppingCartController {
     private ShoppingCartDTO convertToDTO(ShoppingCart cart) {
         List<ProductsDTO> productsDTO = new ArrayList<>();
         for (Products product : cart.getProducts()) {
-
             CategoryDTO categoryDTO = null;
             if (product.getCategory() != null) {
                 categoryDTO = new CategoryDTO(product.getCategory().getIdCategory(),
@@ -149,15 +148,23 @@ public class ShoppingCartController {
             productsDTO.add(new ProductsDTO(product.getProductId(), product.getName(), product.getDescription(),
                                               product.getPrice(), product.getQuantityInInventory(),
                                               product.getDiscount(), product.getAvailableQuantity(),
-                                              product.getWarehouseLocation(), categoryDTO)); 
+                                              product.getWarehouseLocation(), categoryDTO));
         }
-        return new ShoppingCartDTO(cart.getIdCart(), productsDTO, cart.getTotal(), 
-                                    new UserDTO(cart.getUser().getUserId(), 
-                                                 cart.getUser().getName(), 
-                                                 cart.getUser().getEmail(), 
-                                                 cart.getUser().getAddress(), 
-                                                 cart.getUser().getUserType(), 
-                                                 cart.getUser().getPhone()));
+
+        return new ShoppingCartDTO(
+            cart.getIdCart(),
+            productsDTO,
+            cart.getTotal(),
+            new UserDTO(
+                cart.getUser().getUserId(),
+                cart.getUser().getName(),
+                cart.getUser().getEmail(),
+                cart.getUser().getAddress(),
+                cart.getUser().getUserType(),
+                cart.getUser().getPhone(),
+                cart.getUser().getPassword() 
+            )
+        );
     }
 
     private List<ShoppingCartDTO> convertToDTOs(List<ShoppingCart> carts) {
@@ -168,5 +175,4 @@ public class ShoppingCartController {
         return dtos;
     }
 }
-
 

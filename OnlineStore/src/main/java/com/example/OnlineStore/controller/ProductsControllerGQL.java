@@ -56,6 +56,7 @@ public class ProductsControllerGQL {
         product.setAvailableQuantity(productDTO.getAvailableQuantity());
         product.setWarehouseLocation(productDTO.getWarehouseLocation());
 
+       
         if (productDTO.getCategory() != null) {
             Category category = categoryService.getCategoryById(productDTO.getCategory().getIdCategory());
             if (category != null) {
@@ -81,8 +82,8 @@ public class ProductsControllerGQL {
 
     @MutationMapping
     public ProductsDTO addProduct(@Argument ProductsDTO productDTO) {
-        if (productDTO == null || 
-            (productDTO.getCategory() != null && categoryService.getCategoryById(productDTO.getCategory().getIdCategory()) == null)) {
+        if (productDTO == null || productDTO.getCategory() == null || 
+            categoryService.getCategoryById(productDTO.getCategory().getIdCategory()) == null) {
             throw new IllegalArgumentException("Invalid category ID");
         }
 
@@ -111,5 +112,6 @@ public class ProductsControllerGQL {
         return true;
     }
 }
+
 
 

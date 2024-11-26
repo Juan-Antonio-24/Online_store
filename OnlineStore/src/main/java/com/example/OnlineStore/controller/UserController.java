@@ -71,7 +71,7 @@ public class UserController {
     })
     @PutMapping("{userId}")
     public ResponseEntity<?> update(@RequestBody User user, @PathVariable Integer userId) {
-        User auxUser = service.getById(userId); // Cambiado de getByControlNumber a getById
+        User auxUser = service.getById(userId); 
         if (auxUser != null) {
             user.setUserId(auxUser.getUserId());
             service.save(user);

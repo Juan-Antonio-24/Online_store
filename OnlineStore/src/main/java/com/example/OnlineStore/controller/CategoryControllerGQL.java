@@ -31,19 +31,19 @@ public class CategoryControllerGQL {
     }
 
     @MutationMapping
-    public String addCategory(@Argument CategoryDTO categoryDTO) {
+    public String addCategory(@Argument("category") CategoryDTO categoryDTO) {
         categoryService.addCategory(categoryDTO);
         return "Category added successfully";
     }
 
     @MutationMapping
-    public String removeCategory(@Argument int id) {
+    public String removeCategory(@Argument("id") int id) {
         categoryService.removeCategory(id);
         return "Category removed successfully";
     }
 
     @MutationMapping
-    public String updateCategory(@Argument int id, @Argument CategoryDTO categoryDTO) {
+    public String updateCategory(@Argument("id") int id, @Argument("category") CategoryDTO categoryDTO) {
         categoryService.updateCategory(id, categoryDTO);
         return "Category updated successfully";
     }

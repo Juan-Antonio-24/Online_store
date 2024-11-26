@@ -13,19 +13,20 @@ public class UserDTO implements Serializable {
     private String address;
     private String userType;
     private String phone;
+    private String password; 
 
     public UserDTO() {}
 
-    public UserDTO(Integer userId, String name, String email, String address, String userType, String phone) {
+    public UserDTO(Integer userId, String name, String email, String address, String userType, String phone, String password) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.address = address;
         this.userType = userType;
         this.phone = phone;
+        this.password = password;
     }
 
-    
     public UserDTO(User user) {
         this.userId = user.getUserId(); 
         this.name = user.getName();
@@ -33,9 +34,9 @@ public class UserDTO implements Serializable {
         this.address = user.getAddress();
         this.userType = user.getUserType();
         this.phone = user.getPhone();
+        this.password = user.getPassword(); 
     }
 
-    
     public Integer getUserId() {
         return userId;
     }
@@ -82,5 +83,13 @@ public class UserDTO implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPassword() { 
+        return password;
+    }
+
+    public void setPassword(String password) { 
+        this.password = password;
     }
 }

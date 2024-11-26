@@ -26,7 +26,6 @@ public class ShoppingCartControllerGQL {
     private final ProductsService productService;
     private final UserService userService;
 
-
     public ShoppingCartControllerGQL(ShoppingCartService service, ProductsService productService, UserService userService) {
         this.service = service;
         this.productService = productService;
@@ -133,7 +132,8 @@ public class ShoppingCartControllerGQL {
                 cart.getUser().getEmail(),
                 cart.getUser().getAddress(),
                 cart.getUser().getUserType(),
-                cart.getUser().getPhone()
+                cart.getUser().getPhone(),
+                cart.getUser().getPassword() 
             )
         );
     }
@@ -146,5 +146,4 @@ public class ShoppingCartControllerGQL {
         return dtos;
     }
 }
-
 

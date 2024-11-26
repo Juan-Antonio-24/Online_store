@@ -99,6 +99,7 @@ type User {
   userId: ID!
   name: String!
   email: String!
+  password: String! 
   address: String
   userType: String
   phone: String
@@ -156,6 +157,7 @@ input UserDTO {
   userId: ID!
   name: String!
   email: String!
+  password: String! 
   address: String
   userType: String
   phone: String
